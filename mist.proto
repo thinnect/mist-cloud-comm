@@ -1,0 +1,31 @@
+
+// [START declaration]
+syntax = "proto3";
+package mist;
+
+import "google/protobuf/timestamp.proto";
+// [END declaration]
+
+// [START go_declaration]
+option go_package = "bitbucket.org/thinnect/mist-daemon";
+// [END go_declaration]
+
+// [START messages]
+message MistMessage {
+  fixed64 gateway = 1; // EUI64 of the gateway that the message is travelling through
+  fixed64 destination = 2; // EUI64 of the destination
+  fixed64 source = 3; // EUI64 of the source
+  
+  bytes payload = 4; // Message payload
+
+  uint32 amid = 5; // uint16 - extended Active Message ID
+
+  int32 rssi = 6; // int8 - message RSSI (dB), -128 when not available
+  uint32 lqi = 7; // uint8 - message LQI (0-255), 0 when not available
+
+  uint32 group = 8; // uint16 - extended Active Message Group or PAN ID
+  uint32 channel = 9; // uint8 - radio channel
+
+  google.protobuf.Timestamp timestamp = 10; // Timestamp of the message as it entered the Mist daemon
+}
+// [END messages]
